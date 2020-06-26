@@ -1,5 +1,5 @@
 {
-    "name": "lunalabs/zuora-api",
+    "name": "lunalabs-srl/zuora-api",
     "description": "A simple PHP package to integrate the Zuora REST API",
     "license": "GPL-2.0-only",
     "type": "package",
