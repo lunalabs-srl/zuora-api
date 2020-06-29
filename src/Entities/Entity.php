@@ -75,4 +75,20 @@ abstract class Entity
     {
         return $this->client->request('POST', $this->client->getApiVersion() . '/action/query', [ 'json' => [ 'queryString' => $query ]]);
     }
+
+
+    /**
+     * Performs a call to a specified endpoint (only the URL part after the API version) with a specified verb and data
+     * to send. This method is useful for custom Zuora flows.
+     *
+     * @param  string $verb
+     * @param  string $endpoint
+     * @param  array  $data
+     * @return object
+     * @throws ZuoraApiException|GuzzleException
+     */
+    public function getResource(string $verb, string $endpoint, array $data = [])
+    {
+        return $this->client->request($verb, $this->client->getApiVersion() . $endpoint, [ 'json' => $data ])->toObject();
+    }
 }

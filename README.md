@@ -112,19 +112,22 @@ try {
 // If you want to associate a tokenized credit card to an existing Zuora account, you have to use a payload like this:
 
 $tokenizedCard = [
-    'AccountId'           => 'ZUORA_ACCOUNT_ID',
-    'Type'                => 'CreditCardReferenceTransaction',
-    'UseDefaultRetryRule' => true,
-    'TokenId'             => 'CARD_ID_FROM_YOUR_PAYMENT_GATEWAY',
-    'SecondTokenId'       => 'REFERENCE_ID_FROM_YOUR_PAYMENT_GATEWAY'
+    'AccountId'                 => 'ZUORA_ACCOUNT_ID',
+    'Type'                      => 'CreditCardReferenceTransaction',
+    'UseDefaultRetryRule'       => true,
+    'TokenId'                   => 'CARD_ID_FROM_YOUR_PAYMENT_GATEWAY',
+    'SecondTokenId'             => 'REFERENCE_ID_FROM_YOUR_PAYMENT_GATEWAY'
 ];
 
 $tokenizedSepa = [
-    'AccountId'           => 'ZUORA_ACCOUNT_ID',
-    'Type'                => 'CreditCardReferenceTransaction',
-    'UseDefaultRetryRule' => true,
-    'TokenId'             => 'SEPA_ID_FROM_YOUR_PAYMENT_GATEWAY',
-    'SecondTokenId'       => 'RUM_ID_FROM_YOUR_PAYMENT_GATEWAY'
+    'AccountId'                 => 'ZUORA_ACCOUNT_ID',
+    'Type'                      => 'BankTransfer',
+    'BankTransferType'          => 'SEPA',
+    'UseDefaultRetryRule'       => true,
+    'BankTransferAccountNumber' => 'IT4000000000000000000000000', // The user's IBAN
+    'MandateReceived'           => 'Yes',
+    'ExistingMandate'           => 'Yes',
+    'MandateID'                 => 'SLMP000000000'
 ];
 
 try {
@@ -196,6 +199,19 @@ try {
 
 <br />
 
+# Available methods on other entities
+
+The other entites provide similar methods to retrieve, save, update and delete a record.
+Simply open the desired entity class and see what it covers.
+<br />
+
+If you need a particular call on a non-existing method on a entity, you can use the common **getResource()** method as described here:
+```php
+$response = $zuora->account()->getResource('POST', '/accounts/ZUORA_ACCOUNT_ID', $data);
+```
+ 
+<br />
+
 ## Callout
 
 It is possible to handle the **Zuora callout** by specifying custom username and password for each callout.
@@ -236,11 +252,11 @@ $response  = $callout->getResponse();
 - [x] orders
 - [ ] paymentgateways
 - [x] paymentmethod
-- [ ] payments
+- [x] payments
 - [x] product
 - [ ] rate-plan
 - [ ] refunds
-- [ ] subscriptions
+- [x] subscriptions
 - [ ] transactions
 
 ### Testing

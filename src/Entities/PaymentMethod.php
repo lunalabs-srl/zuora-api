@@ -91,6 +91,7 @@ class PaymentMethod extends Entity
      */
     public function setDefaultPayment(string $accountId, string $paymentId): object
     {
-        return $this->client->request('PUT', $this->client->getApiVersion().'/object/account/'.$accountId, [ 'json' => [ 'DefaultPaymentMethodId' => $paymentId ] ])->toObject();
+        $payload = [ 'AutoPay' => true, 'DefaultPaymentMethodId' => $paymentId ];
+        return $this->client->request('PUT', $this->client->getApiVersion().'/object/account/'.$accountId, [ 'json' => $payload ])->toObject();
     }
 }
