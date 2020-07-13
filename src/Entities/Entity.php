@@ -84,11 +84,12 @@ abstract class Entity
      * @param  string $verb
      * @param  string $endpoint
      * @param  array  $data
+     * @param  array  $headers
      * @return object
      * @throws ZuoraApiException|GuzzleException
      */
-    public function getResource(string $verb, string $endpoint, array $data = [])
+    public function getResource(string $verb, string $endpoint, array $data = [], array $headers = [])
     {
-        return $this->client->request($verb, $this->client->getApiVersion() . $endpoint, [ 'json' => $data ])->toObject();
+        return $this->client->request($verb, $this->client->getApiVersion() . $endpoint, [ 'json' => $data ], $headers)->toObject();
     }
 }
