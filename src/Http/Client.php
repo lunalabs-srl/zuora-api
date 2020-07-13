@@ -55,10 +55,11 @@ class Client
      * @param  string $method
      * @param  string $endpoint
      * @param  array  $params
+     * @param  array  $headers
      * @return object
      * @throws ZuoraApiException|GuzzleException
      */
-    public function request(string $method, string $endpoint, array $params): object
+    public function request(string $method, string $endpoint, array $params, array $headers = []): object
     {
         // Adds the access token to all the requests an set the content type to JSON.
         $data = [
@@ -68,6 +69,9 @@ class Client
                 'Authorization' => 'Bearer '.$this->getToken()->access_token,
             ]
         ];
+
+        // Adds optional headers if set.
+        $data['headers'] = array_merge($data['headers'], $headers);
 
         // Adds optionals parameters if set.
         foreach ($params as $param => $value) {
