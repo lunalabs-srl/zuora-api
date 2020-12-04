@@ -82,16 +82,17 @@ class PaymentMethod extends Entity
 
 
     /**
-     * Sets the given payment ID as default payment for the given account ID.
+     * Sets the given payment ID as default payment for the given account ID and the related gateway name mapped on Zuora.
      *
      * @param  string $accountId
      * @param  string $paymentId
+     * @param  string $zuoraGatewayName
      * @return object
      * @throws ZuoraApiException|GuzzleException
      */
-    public function setDefaultPayment(string $accountId, string $paymentId): object
+    public function setDefaultPayment(string $accountId, string $paymentId, string $zuoraGatewayName): object
     {
-        $payload = [ 'AutoPay' => true, 'DefaultPaymentMethodId' => $paymentId ];
+        $payload = [ 'AutoPay' => true, 'DefaultPaymentMethodId' => $paymentId, 'PaymentGateway' => $zuoraGatewayName];
         return $this->client->request('PUT', $this->client->getApiVersion().'/object/account/'.$accountId, [ 'json' => $payload ])->toObject();
     }
 }
